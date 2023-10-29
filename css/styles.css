@@ -1,0 +1,44 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#encabezado{
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 56%, rgba(26,210,54,1) 100%);
+}
+#offcanvasDarkNavbar{
+    background-color: aqua;
+}
+#prueba:hover{
+    background-color:rgb(238, 78, 105);
+}
+#prueba2:hover{
+background-color: rgb(12, 183, 12);
+}
+#texcab:hover{
+text-decoration: underline;
+}
+#fondo-principal{
+    background-image: url("../img/668A0594.JPG");
+    background-repeat: no-repeat;
+    background-size: 100% 130%;
+}
+#titulos{
+    padding: 15%;
+}
+
+#txts{
+    color: rgb(70, 239, 70);
+
+}
+#inscrp{
+    color: rgb(162, 253, 162);;
+}
+
+#title-enroll{
+    background-image: url("../img/athletics-track.jpg");
+    background-repeat: repeat; 
+    background-size: 105% 115%;
+}

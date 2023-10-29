@@ -1,0 +1,19 @@
+div {
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+h3 {
+    border: 5px solid rgb(4, 183, 72)
+}
+
+h2 {
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    text-align: center;
+}
+
