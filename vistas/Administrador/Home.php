@@ -76,16 +76,123 @@ $usuario = recuerdaUsuario($conexion);
             </div>
         </div>
     </nav>
+        
+    <button class="btn btn-success mt-2 m-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Listado de Usuarios
+    </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Usuarios</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Nombre de Usuario</th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Email</th>
+                                <th>DNI</th>
+                                <th>Tipo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $usuarios = obtenerUsuarios($conexion);
+
+                            foreach ($usuarios as $usuario) {
+                                echo '<tr>
+                                <td>' . $usuario['Nombre_de_usuario'] . '</td>
+                                <td>' . $usuario['nombre'] . '</td>
+                                <td>' . $usuario['apellidos'] . '</td>
+                                <td>' . $usuario['email'] . '</td>
+                                <td>' . $usuario['DNI'] . '</td>
+                                <td>' . $usuario['Tipo'] . '</td>
+                            </tr>';
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">CREAR USUARIOS-ATLETAS</h5>
+                    <p class="card-text">Crea Atletas y Asignales el Grupo de entrenamiento que necesite</p>
+                    <a href="#" class="btn btn-primary">Crear Usuario</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">CREAR USUARIOS-ENTRENADORES</h5>
+                    <p class="card-text">Crea entrenadores y Asignales el grupo de entrenamiento que consideres </p>
+                    <a href="#" class="btn btn-primary">Crear Entrenador</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">CREAR GRUPOS DE ENTRENAMIENTOS</h5>
+                    <p class="card-text">Crea Grupos de entrenamientos, asignales un horario y Categoria </p>
+                    <a href="#" class="btn btn-primary">Crear Grupo de Entrenamiento</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">ADMINISTRAR CALENDARIO</h5>
+                    <p class="card-text">Crea Eventos y Asigna Fechas en el calendario  </p>
+                    <a href="#" class="btn btn-primary">Crear Eventos</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">ADMINISTRAR ALBUM</h5>
+                    <p class="card-text">Crea Albumes, y asignales una descripcion </p>
+                    <a href="#" class="btn btn-primary">Crear Album</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">EDITAR USUARIOS</h5>
+                    <p class="card-text">Edita la informacion de los usuarios </p>
+                    <a href="#" class="btn btn-primary">Editar Usuarios</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+   
 
     <!-- offcanvas -->
-    <div class="container-fluid">
-        <div class="row">
+    <!-- <div class="container-fluid">
+        <div class="row"> -->
             <!-- Sidebar -->
-            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
+            <!-- <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
                 <div class="position-sticky">
-                    <ul class="nav flex-column">
+                    <ul class="nav flex-column"> -->
                         <!-- Contenido del sidebar -->
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link active" href="#">
                                 <i class="bi bi-house-door"></i> Home
                             </a>
@@ -107,82 +214,12 @@ $usuario = recuerdaUsuario($conexion);
                         </li>
                     </ul>
                 </div>
-            </nav>
+            </nav> -->
 
             <!-- Contenido principal -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-
-                <!-- El contenedor para el gráfico de barras horizontales -->
-                <div id="grafico1" style="height: 400px;"></div>
-
-                <!-- El contenedor para el gráfico de barras verticales -->
-                <div id="grafico2" style="height: 400px;"></div>
-
-                <script>
-                    // Datos para el gráfico de barras horizontales
-                    var datos1 = {
-                        categories: ['A', 'B', 'C', 'D', 'E'],
-                        data: [8, 5, 2, 7, 3]
-                    };
-
-                    // Configuración del gráfico de barras horizontales
-                    var config1 = {
-                        chart: {
-                            type: 'bar'
-                        },
-                        title: {
-                            text: 'Inscritos Mensuales'
-                        },
-                        xAxis: {
-                            categories: datos1.categories
-                        },
-                        yAxis: {
-                            title: {
-                                text: 'Valor'
-                            }
-                        },
-                        series: [{
-                            name: 'Datos',
-                            data: datos1.data
-                        }]
-                    };
-
-                    // Crea el gráfico de barras horizontales en el contenedor con id "grafico1"
-                    Highcharts.chart('grafico1', config1);
-
-                    // Datos para el gráfico de barras verticales
-                    var datos2 = {
-                        categories: ['A', 'B', 'C', 'D', 'E'],
-                        data: [8, 5, 2, 7, 3]
-                    };
-
-                    // Configuración del gráfico de barras verticales
-                    var config2 = {
-                        chart: {
-                            type: 'column'
-                        },
-                        title: {
-                            text: 'Competiciones'
-                        },
-                        xAxis: {
-                            categories: datos2.categories
-                        },
-                        yAxis: {
-                            title: {
-                                text: 'Valor'
-                            }
-                        },
-                        series: [{
-                            name: 'Datos',
-                            data: datos2.data
-                        }]
-                    };
-                    // Crea el gráfico de barras verticales en el contenedor con id "grafico2"
-                    Highcharts.chart('grafico2', config2);
-                </script>
-            </main>
-        </div>
-    </div>
+            
+        <!-- </div> -->
+    <!-- </div> -->
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
