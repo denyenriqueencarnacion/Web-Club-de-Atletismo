@@ -1,5 +1,6 @@
 <?php
-function registrarUsuario($conexion) {
+function registrarUsuario($conexion)
+{
     $msg = "";
 
     if (!empty($_POST["nombreUsuario"]) && !empty($_POST["nombre"]) && !empty($_POST["apellidos"]) && !empty($_POST["email"]) && !empty($_POST["DNI"]) && !empty($_POST["password"]) && !empty($_POST["Telefono"]) && !empty($_POST["tipo"])) {
@@ -28,6 +29,37 @@ function registrarUsuario($conexion) {
             $smt->bindParam(':Telefono', $_POST["Telefono"]);
             $smt->bindParam(':tipo', $_POST["tipo"]);
 
+            switch ($_POST["tipo"]) {
+                case "Atleta":
+                    $nombreUsuario = $_POST["nombreUsuario"];
+                    $sql2 = "SELECT id_atleta, Grupo FROM usuarios WHERE Nombre_de_usuario = '$nombreUsuario'";
+                    $smt2 = $conexion->prepare($sql2);
+                    $smt2->execute();
+
+                    $resultado = $smt2->fetch(PDO::FETCH_ASSOC);
+
+
+                    $id_atleta = $resultado['id_atleta'];
+                    $Grupo = $resultado['Grupo'];
+
+                    $sql = "INSERT INTO atletas(id_atleta, Nombre_de_usuario, Grupo, Prueba_principal, Marca, Categoria) 
+                            VALUES (:id_atleta, :nombreUsuario, :Grupo, :Prueba_principal, :Marca, :Categoria)";
+                    $smt = $conexion->prepare($sql);
+
+
+                    $smt->bindParam(':nombreUsuario', $_POST["nombreUsuario"]);
+                    $smt->bindParam(':Grupo', $_POST["Grupo"]);
+                    $smt->bindParam(':Prueba_principal', $_POST["Prueba_principal"]);
+                    $smt->bindParam(':Marca', $_POST["Marca"]);
+                    $smt->bindParam(':Categoria',  $_POST["Categoria"]);
+                    $smt->bindParam(':id_atleta', $id_atleta);
+                    $smt->bindParam(':Grupo', $Grupo);
+
+
+                    break;
+            }
+
+
             if ($smt->execute()) {
                 $msg = "El usuario ha sido registrado correctamente";
             } else {
@@ -38,7 +70,8 @@ function registrarUsuario($conexion) {
     return $msg;
 }
 
-function obtenerUsuarios($conexion) {
+function obtenerUsuarios($conexion)
+{
     $usuarios = array();
 
     $sql = "SELECT Nombre_de_usuario, nombre, apellidos, email, DNI, Tipo, activo FROM usuarios";
@@ -53,16 +86,13 @@ function obtenerUsuarios($conexion) {
 }
 
 
-function obtenerDatosUsuariosPorMes($conexion) {
+// function obtenerDatosUsuariosPorMes($conexion) {
     
     
-    $recuerda = $conexion->prepare('SELECT Nombre_de_usuario FROM usuarios where Tipo = "Atleta"');
-    $recuerda->execute();
-    $resultado = $recuerda->fetchAll(PDO::FETCH_ASSOC);
-    $datos = $resultado;
+//     $recuerda = $conexion->prepare('SELECT Nombre_de_usuario FROM usuarios where Tipo = "Atleta"');
+//     $recuerda->execute();
+//     $resultado = $recuerda->fetchAll(PDO::FETCH_ASSOC);
+//     $datos = $resultado;
     
-    return count($datos);
-}
-
-
-?>
+//     return count($datos);
+// }
