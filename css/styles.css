@@ -5,7 +5,7 @@ body, html {
 }
 
 #encabezado{
-    background: rgb(0,0,0);
+    background: rgb(24, 22, 22);
     background: linear-gradient(90deg, rgba(0,0,0,1) 56%, rgba(26,210,54,1) 100%);
 }
 #offcanvasDarkNavbar{
@@ -29,13 +29,6 @@ text-decoration: underline;
     padding: 15%;
 }
 
-#txts{
-    color: rgb(70, 239, 70);
-
-}
-#inscrp{
-    color: rgb(162, 253, 162);;
-}
 
 #title-enroll{
     background-image: url("../img/athletics-track.jpg");

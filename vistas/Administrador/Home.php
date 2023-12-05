@@ -31,11 +31,11 @@ $usuario = recuerdaUsuario($conexion);
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active text-white-50" aria-current="page" id="texcab" href="../../Calendario_Competiciones.html">Calendario de
+                        <a class="nav-link active text-white-50" aria-current="page" id="texcab" href="../../Calendario_Competiciones.php">Calendario de
                             Competiciones</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white-50" id="texcab" href="album.html">Albumes</a>
+                        <a class="nav-link text-white-50" id="texcab" href="../../Album.php">Albumes</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white-50" id="texcab" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -44,7 +44,6 @@ $usuario = recuerdaUsuario($conexion);
                         <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item text-white" id="prueba" href="#">Historia</a></li>
                             <li><a class="dropdown-item text-white" id="prueba" href="#">Entrenadores</a></li>
-                            <li><a class="dropdown-item text-white" id="prueba" href="Administrar.html">Administrar</a></li>
                             <li>
                             <li>
                                 <hr class="dropdown-divider bg-light">
