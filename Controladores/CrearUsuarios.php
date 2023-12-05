@@ -29,36 +29,33 @@ function registrarUsuario($conexion)
             $smt->bindParam(':Telefono', $_POST["Telefono"]);
             $smt->bindParam(':tipo', $_POST["tipo"]);
 
-            switch ($_POST["tipo"]) {
-                case "Atleta":
-                    $nombreUsuario = $_POST["nombreUsuario"];
-                    $sql2 = "SELECT id_atleta, Grupo FROM usuarios WHERE Nombre_de_usuario = '$nombreUsuario'";
-                    $smt2 = $conexion->prepare($sql2);
-                    $smt2->execute();
+            // switch ($_POST["tipo"]) {
+            //     case "Atleta":
+            //         $nombreUsuario = $_POST["nombreUsuario"];
 
-                    $resultado = $smt2->fetch(PDO::FETCH_ASSOC);
-
-
-                    $id_atleta = $resultado['id_atleta'];
-                    $Grupo = $resultado['Grupo'];
-
-                    $sql = "INSERT INTO atletas(id_atleta, Nombre_de_usuario, Grupo, Prueba_principal, Marca, Categoria) 
-                            VALUES (:id_atleta, :nombreUsuario, :Grupo, :Prueba_principal, :Marca, :Categoria)";
-                    $smt = $conexion->prepare($sql);
+            //         $sql = "INSERT INTO atletas(Nombre_de_usuario, Grupo, Prueba_principal, Marca, Categoria) 
+            //                 VALUES (:nombreUsuario, :Grupo, :Prueba_principal, :Marca, :Categoria)";
+            //         $smt = $conexion->prepare($sql);
 
 
-                    $smt->bindParam(':nombreUsuario', $_POST["nombreUsuario"]);
-                    $smt->bindParam(':Grupo', $_POST["Grupo"]);
-                    $smt->bindParam(':Prueba_principal', $_POST["Prueba_principal"]);
-                    $smt->bindParam(':Marca', $_POST["Marca"]);
-                    $smt->bindParam(':Categoria',  $_POST["Categoria"]);
-                    $smt->bindParam(':id_atleta', $id_atleta);
-                    $smt->bindParam(':Grupo', $Grupo);
+            //         $smt->bindParam(':nombreUsuario', $_POST["nombreUsuario"]);
+            //         $smt->bindParam(':Grupo', $_POST["Grupo"]);
+            //         $smt->bindParam(':Prueba_principal', $_POST["Prueba_principal"]);
+            //         $smt->bindParam(':Marca', $_POST["Marca"]);
+            //         $smt->bindParam(':Categoria',  $_POST["Categoria"]);
 
+            //         break;
 
-                    break;
-            }
+            //     case "Entrenador":
+            //         $sql = "INSERT INTO entrenadores(Nombre_de_usuario, Descripción) 
+            //                 VALUES (:nombreUsuario, :Descripción)";
+            //         $smt = $conexion->prepare($sql);
 
+            //         $smt->bindParam(':nombreUsuario', $_POST["nombreUsuario"]);
+            //         $smt->bindParam(':Descripción', $_POST["Descripcion"]);
+
+            //         break;
+            // }
 
             if ($smt->execute()) {
                 $msg = "El usuario ha sido registrado correctamente";
@@ -74,7 +71,7 @@ function obtenerUsuarios($conexion)
 {
     $usuarios = array();
 
-    $sql = "SELECT Nombre_de_usuario, nombre, apellidos, email, DNI, Tipo, activo FROM usuarios";
+    $sql = "SELECT Nombre_de_usuario, nombre, apellidos, email, DNI, Tipo FROM usuarios";
     $stmt = $conexion->prepare($sql);
     $stmt->execute();
 

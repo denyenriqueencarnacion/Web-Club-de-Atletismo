@@ -18,7 +18,6 @@ $usuario = recuerdaUsuario($conexion);
     <link rel="stylesheet" href="../../css/styles3.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <script src="https://code.highcharts.com/highcharts.js"></script>
     <title>Administracion</title>
 </head>
 
@@ -32,7 +31,7 @@ $usuario = recuerdaUsuario($conexion);
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active text-white-50" aria-current="page" id="texcab" href="Calendario.html">Calendario de
+                        <a class="nav-link active text-white-50" aria-current="page" id="texcab" href="../../Calendario_Competiciones.html">Calendario de
                             Competiciones</a>
                     </li>
                     <li class="nav-item">
@@ -120,6 +119,10 @@ $usuario = recuerdaUsuario($conexion);
     </div>
 
     <div class="row">
+    <?php if (!empty($msg)) {
+                                echo '<div class="alert alert-info mt-3" role="alert">' . $msg . '</div>';
+                            }
+                            ?>
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
@@ -128,139 +131,10 @@ $usuario = recuerdaUsuario($conexion);
                     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#CrearUsuarios" aria-expanded="false" aria-controls="collapseExample">
                         Crear Usuarios
                     </button>
-
+                            
                     <div class="collapse mt-2" id="CrearUsuarios">
                         <div class="card">
 
-                            <?php if (!empty($msg)) {
-                                echo '<div class="alert alert-info mt-3" role="alert">' . $msg . '</div>';
-                            }
-                            ?>
-
-                            <div class="card-body">
-                                <form action="../../Controladores/CrearUsuarios.php" method="post">
-                                    <div class="mb-3">
-                                        <label for="nombreUsuario" class="form-label">Nombre de Usuario:</label>
-                                        <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="nombre" class="form-label">Nombre:</label>
-                                        <input type="text" class="form-control" id="nombre" name="nombre" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="apellidos" class="form-label">Apellidos:</label>
-                                        <input type="text" class="form-control" id="apellidos" name="apellidos" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Correo Electrónico:</label>
-                                        <input type="email" class="form-control" id="email" name="email" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="DNI" class="form-label">DNI:</label>
-                                        <input type="text" class="form-control" id="DNI" name="DNI" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="password" class="form-label">Contraseña:</label>
-                                        <input type="password" class="form-control" id="password" name="password" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="Telefono" class="form-label">Teléfono:</label>
-                                        <input type="tel" class="form-control" id="Telefono" name="Telefono" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="Grupo" class="form-label">Grupo:</label>
-                                        <input type="text" class="form-control" id="Grupo" name="Grupo" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="Prueba_principal" class="form-label">Prueba principal:</label>
-                                        <select class="form-select" id="Prueba_principal" name="Prueba_principal" required>
-                                            <option value="" selected disabled>Selecciona una prueba</option>
-                                            <!-- Pruebas de Velocidad/Medio fondo -->
-                                            <optgroup label="Velocidad/MedioFondo">
-                                                <option value="60m">60m</option>
-                                                <option value="80m">80m</option>
-                                                <option value="100m">100m</option>
-                                                <option value="200m">200m</option>
-                                                <option value="300m">300m</option>
-                                                <option value="400m">400m</option>
-                                                <option value="600m">600m</option>
-                                                <option value="800m">800m</option>
-                                            </optgroup>
-                                            <!-- Pruebas de concursos -->
-                                            <optgroup label="Concursos">
-                                                <option value="Longitud">Longitud</option>
-                                                <option value="Jabalina">Jabalina</option>
-                                                <option value="Disco">Disco</option>
-                                                <option value="Pértiga">Pértiga</option>
-                                                <option value="Peso">Peso</option>
-                                                <option value="Triple_Salto">Triple Salto</option>
-                                                <option value="Altura">Salto de Altura</option>
-                                            </optgroup>
-                                            <!-- Pruebas de Vallas -->
-                                            <optgroup label="Vallas">
-                                                <option value="110mv">110mv</option>
-                                                <option value="400mv">400mv</option>
-                                                <option value="300mv">300mv</option>
-                                                <option value="220mv">220mv</option>
-                                                <option value="60mv">60mv</option>
-                                                <option value="80mv">80mv</option>
-                                                <option value="100mv">100mv</option>
-                                            </optgroup>
-                                            <!-- Pruebas de Fondo -->
-                                            <optgroup label="Fondo">
-                                                <option value="1500m">1500m</option>
-                                                <option value="3k">3k</option>
-                                                <option value="3k_Obstaculos">3k Obstaculos</option>
-                                                <option value="5k">5k</option>
-                                                <option value="10k">10k</option>
-                                                <option value="Maraton">Maraton</option>
-                                                <option value="Media_Maraton">Media Maraton</option>
-                                                <option value="Marcha">Marcha</option>
-                                            </optgroup>
-                                        </select>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="Marca" class="form-label">Marca:</label>
-                                        <input type="text" class="form-control" id="Marca" name="Marca" required>
-                                    </div>
-
-                                   
-
-                                    <div class="mb-3" hidden>
-                                        <label for="tipo" class="form-label">Tipo:</label>
-                                        <select class="form-select" id="tipo" name="tipo" required>
-                                            <option value="Atleta" selected>Atleta</option>
-                                        </select>
-                                    </div>
-                                    <input type="submit" class="btn btn-primary" value="Registrar Usuarios">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">CREAR USUARIOS-ENTRENADORES</h5>
-                    <p class="card-text">Crea entrenadores y Asignales el grupo de entrenamiento que consideres </p>
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#CrearEntrenador" aria-expanded="false" aria-controls="collapseExample">
-                        Crear Entrenador
-                    </button>
-
-                    <div class="collapse mt-2" id="CrearEntrenador">
-                        <div class="card">
                             <div class="card-body">
                                 <form action="" method="post">
                                     <div class="mb-3">
@@ -298,9 +172,128 @@ $usuario = recuerdaUsuario($conexion);
                                         <input type="tel" class="form-control" id="Telefono" name="Telefono" required>
                                     </div>
 
-                                    <div class="mb-3">
+                                    <!-- <div class="mb-3">
                                         <label for="Grupo" class="form-label">Grupo:</label>
                                         <input type="text" class="form-control" id="Grupo" name="Grupo" required>
+                                    </div> -->
+
+                                    <!-- <div class="mb-3">
+                                        <label for="Prueba_principal" class="form-label">Prueba principal:</label>
+                                        <select class="form-select" id="Prueba_principal" name="Prueba_principal" required>
+                                            <option value="" selected disabled>Selecciona una prueba</option> -->
+                                            <!-- Pruebas de Velocidad/Medio fondo -->
+                                            <!-- <optgroup label="Velocidad/MedioFondo">
+                                                <option value="60m">60m</option>
+                                                <option value="80m">80m</option>
+                                                <option value="100m">100m</option>
+                                                <option value="200m">200m</option>
+                                                <option value="300m">300m</option>
+                                                <option value="400m">400m</option>
+                                                <option value="600m">600m</option>
+                                                <option value="800m">800m</option>
+                                            </optgroup> -->
+                                            <!-- Pruebas de concursos -->
+                                            <!-- <optgroup label="Concursos">
+                                                <option value="Longitud">Longitud</option>
+                                                <option value="Jabalina">Jabalina</option>
+                                                <option value="Disco">Disco</option>
+                                                <option value="Pértiga">Pértiga</option>
+                                                <option value="Peso">Peso</option>
+                                                <option value="Triple_Salto">Triple Salto</option>
+                                                <option value="Altura">Salto de Altura</option>
+                                            </optgroup> -->
+                                            <!-- Pruebas de Vallas -->
+                                            <!-- <optgroup label="Vallas">
+                                                <option value="110mv">110mv</option>
+                                                <option value="400mv">400mv</option>
+                                                <option value="300mv">300mv</option>
+                                                <option value="220mv">220mv</option>
+                                                <option value="60mv">60mv</option>
+                                                <option value="80mv">80mv</option>
+                                                <option value="100mv">100mv</option>
+                                            </optgroup> -->
+                                            <!-- Pruebas de Fondo -->
+                                            <!-- <optgroup label="Fondo">
+                                                <option value="1500m">1500m</option>
+                                                <option value="3k">3k</option>
+                                                <option value="3k_Obstaculos">3k Obstaculos</option>
+                                                <option value="5k">5k</option>
+                                                <option value="10k">10k</option>
+                                                <option value="Maraton">Maraton</option>
+                                                <option value="Media_Maraton">Media Maraton</option>
+                                                <option value="Marcha">Marcha</option>
+                                            </optgroup>
+                                        </select>
+                                    </div> -->
+
+                                    <!-- <div class="mb-3">
+                                        <label for="Marca" class="form-label">Marca:</label>
+                                        <input type="text" class="form-control" id="Marca" name="Marca" required>
+                                    </div> -->
+
+                                   
+
+                                    <div class="mb-3" hidden>
+                                        <label for="tipo" class="form-label">Tipo:</label>
+                                        <select class="form-select" id="tipo" name="tipo" required>
+                                            <option value="Atleta" selected>Atleta</option>
+                                        </select>
+                                    </div>
+                                    <input type="submit" class="btn btn-primary" value="Registrar Usuarios">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">CREAR USUARIOS-ENTRENADORES</h5>
+                    <p class="card-text">Crea entrenadores y Asignales el grupo de entrenamiento que consideres </p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#CrearEntrenador" aria-expanded="false" aria-controls="collapseExample">
+                        Crear Entrenador
+                    </button>
+
+                    <div class="collapse mt-2" id="CrearEntrenador">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="../../Controladores/CrearUsuarios.php" method="post">
+                                    <div class="mb-3">
+                                        <label for="nombreUsuario" class="form-label">Nombre de Usuario:</label>
+                                        <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="nombre" class="form-label">Nombre:</label>
+                                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="apellidos" class="form-label">Apellidos:</label>
+                                        <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Correo Electrónico:</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="DNI" class="form-label">DNI:</label>
+                                        <input type="text" class="form-control" id="DNI" name="DNI" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Contraseña:</label>
+                                        <input type="password" class="form-control" id="password" name="password" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="Telefono" class="form-label">Teléfono:</label>
+                                        <input type="tel" class="form-control" id="Telefono" name="Telefono" required>
                                     </div>
 
                                     <div class="mb-3">
@@ -363,7 +356,7 @@ $usuario = recuerdaUsuario($conexion);
             </div>
         </div>
     </div>
-
+ -->
 
 
 
