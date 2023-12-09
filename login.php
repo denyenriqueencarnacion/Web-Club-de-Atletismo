@@ -47,7 +47,7 @@ if (!empty($_POST["usuario"]) && !empty($_POST["contraseña"])) {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active text-white-50" aria-current="page" id="texcab" href="Calendario.html">Calendario de
+            <a class="nav-link active text-white-50" aria-current="page" id="texcab" href="Calendario_Competiciones.php">Calendario de
               Competiciones</a>
           </li>
           <li class="nav-item">
@@ -99,22 +99,23 @@ if (!empty($_POST["usuario"]) && !empty($_POST["contraseña"])) {
         }
         ?>
 
-        <form action="login.php" method="post" id="iniciarSesion" class="needs-validation" novalidate>
+        <form action="login.php" method="post" id="iniciarSesion" class="needs-validation">
           <div class="mb-4">
             <label for="usuario" class="form-label">Nombre de usuario</label>
             <input type="text" class="form-control" name="usuario" id="usuario" required>
           </div>
 
           <div class="mb-4">
-            <label for="contraseña" class="form-label">contraseña</label>
+            <label for="contraseña" class="form-label">Contraseña</label>
             <input type="password" class="form-control" name="contraseña" id="contraseña" required>
+            
           </div>
 
           <div class="d-grid mt-5">
             <input type="submit" value="Iniciar Sesion" class="btn btn-dark" "iniciar" name="iniciar">
           </div>
-
         </form>
+
       </div>
     </div>
   </div>

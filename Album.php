@@ -236,7 +236,6 @@ $usuario = recuerdaUsuario($conexion);
             </div>
           </div>
         </div>
-      
       </main>
 
     <footer class="footer mt-auto py-3 bg-danger">
