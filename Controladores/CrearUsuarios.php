@@ -108,7 +108,7 @@ function obtenerUsuarios($conexion)
                 <td>' . $row['DNI'] . '</td>
                 <td>' . $row['Tipo'] . '</td>
                 <td>
-                    <form action="../../Controladores/EditarUsuarios.php" method="POST">
+                    <form action="EditarUsuarios.php" method="POST">
                         <input type="hidden" name="id_usuario" value="' . $row['id_usuario'] . '"></input>
                         <input type="submit" class="btn btn-success w-100" value="Editar"></input>
                     </form>
@@ -119,3 +119,4 @@ function obtenerUsuarios($conexion)
 
     return $usuarios;
 }
+?>

@@ -22,7 +22,7 @@ if (isset($_SESSION['id_usuario'])) {
         header("location: ../vistas/Atletas/Home_atletas.php");
         break;
     case "Entrenador":
-        header("location: ../vistas/Entrenador/HomeEntrenador.php");
+      header("location: ../vistas/Atletas/Home_atletas.php");
         break;
     default:
         header("location: ../login.php");

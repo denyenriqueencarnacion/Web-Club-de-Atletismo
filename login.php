@@ -38,6 +38,7 @@ if (!empty($_POST["usuario"]) && !empty($_POST["contraseña"])) {
 </head>
 
 <body>
+  <!-- BARRA DE NAVEGACION -->
   <nav class="navbar navbar-expand-lg navbar-light bg-dark" id="encabezado">
     <div class="container-fluid">
       <a class="navbar-brand text-white fw-bold" href="index.html"><img class="media-object rounded-circle" src="img/logo.jpg" width="50" height="50"> CDA San Juan De Aznalfarache</a>
@@ -51,30 +52,9 @@ if (!empty($_POST["usuario"]) && !empty($_POST["contraseña"])) {
               Competiciones</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white-50" id="texcab" href="album.html">Albumes</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white-50" id="texcab" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Club
-            </a>
-            <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item text-white" id="prueba" href="#">Historia</a></li>
-              <li><a class="dropdown-item text-white" id="prueba" href="#">Entrenadores</a></li>
-              <li><a class="dropdown-item text-white" id="prueba" href="Administrar.html">Administrar</a></li>
-              <li>
-              <li>
-                <hr class="dropdown-divider bg-light">
-              </li>
-              <li><a class="dropdown-item text-white" id="prueba2" href="login.php">Iniciar Sesion</a></li>
-              <li><a class="dropdown-item text-white" id="prueba2" href="#">Horarios</a></li>
-              <li><a class="dropdown-item text-white" id="prueba2" href="Rankings.html">Rankigs</a></li>
-            </ul>
+            <a class="nav-link text-white-50" id="texcab" href="Album.php">Albumes</a>
           </li>
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn  btn-primary" type="submit">Search</button>
-        </form>
       </div>
     </div>
   </nav>
@@ -108,7 +88,7 @@ if (!empty($_POST["usuario"]) && !empty($_POST["contraseña"])) {
           <div class="mb-4">
             <label for="contraseña" class="form-label">Contraseña</label>
             <input type="password" class="form-control" name="contraseña" id="contraseña" required>
-            
+
           </div>
 
           <div class="d-grid mt-5">
@@ -119,6 +99,11 @@ if (!empty($_POST["usuario"]) && !empty($_POST["contraseña"])) {
       </div>
     </div>
   </div>
+  <footer class="footer mt-5 py-3 bg-danger">
+    <div class="container-fluid">
+      <span class="text-white" id="letra">CDA San Juan De Aznalfarache | <span>Deny Enrique</span> </span>
+    </div>
+  </footer>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>

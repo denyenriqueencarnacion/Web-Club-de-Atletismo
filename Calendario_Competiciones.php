@@ -54,27 +54,6 @@ $usuario = recuerdaUsuario($conexion);
                     <li class="nav-item">
                         <a class="nav-link text-white-50" id="texcab" href="Album.php">Albumes</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white-50" id="texcab" href="#" id="navbarDropdown"
-                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Club
-                        </a>
-                        <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item text-white" id="prueba" href="#">Historia</a></li>
-                            <li><a class="dropdown-item text-white" id="prueba" href="#">Entrenadores</a></li>
-                            <!-- <li><a class="dropdown-item text-white" id="prueba" href="#">Directiva</a></li> -->
-                            <li><a class="dropdown-item text-white" id="prueba" href="Administrar.html">Administrar</a>
-                            </li>
-                            <li>
-                            <li>
-                                <hr class="dropdown-divider bg-light">
-                            </li>
-                            <li><a class="dropdown-item text-white" id="prueba2" href="login.php">Iniciar Sesión</a>
-                            </li>
-                            <li><a class="dropdown-item text-white" id="prueba2" href="#">Horarios</a></li>
-                            <li><a class="dropdown-item text-white" id="prueba2" href="Rankings.html">Rankigs</a></li>
-                        </ul>
-                    </li>
                 </ul>
                 <div class="btn-group">
                     <button type="button" class="btn  dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">
@@ -84,12 +63,12 @@ $usuario = recuerdaUsuario($conexion);
                         } ?>
                     </button>
                     <ul class="dropdown-menu bg-dark w-100">
-                        <li><a class="dropdown-item text-white" id="prueba" href="../../index.html">Volver a inicio</a></li>
+                        <li><a class="dropdown-item text-white" id="prueba" href="index.html">Volver a inicio</a></li>
 
                         <li>
                             <hr class="dropdown-divider text-white">
                         </li>
-                        <li><a class="dropdown-item text-white" id="prueba2" href="../../CerrarSession.php">Cerrar Sesion</a></li>
+                        <li><a class="dropdown-item text-white" id="prueba2" href="CerrarSession.php">Cerrar Sesion</a></li>
                     </ul>
                 </div>
             </div>

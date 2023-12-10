@@ -4,8 +4,11 @@ require_once "../../BD/conexionBD.php";
 require_once "../../Filtros/FiltroAdmin.php";
 require "../../Controladores/NombreUsuario.php";
 require "../../Controladores/CrearUsuarios.php";
+require "../../Controladores/CrearGrupos.php";
 // require"../../Controladores/EditarUsuarios.php";
 $msg = registrarUsuario($conexion);
+$msg2 = crearGrupos($conexion);
+$msg3 = asignarEntrenadorAGrupo($conexion);
 $usuario = recuerdaUsuario($conexion);
 ?>
 
@@ -36,22 +39,6 @@ $usuario = recuerdaUsuario($conexion);
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white-50" id="texcab" href="../../Album.php">Albumes</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white-50" id="texcab" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Club
-                        </a>
-                        <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item text-white" id="prueba" href="#">Historia</a></li>
-                            <li><a class="dropdown-item text-white" id="prueba" href="#">Entrenadores</a></li>
-                            <li>
-                            <li>
-                                <hr class="dropdown-divider bg-light">
-                            </li>
-                            <li><a class="dropdown-item text-white" id="prueba2" href="../../login.php">Iniciar Sesion</a></li>
-                            <li><a class="dropdown-item text-white" id="prueba2" href="#">Horarios</a></li>
-                            <li><a class="dropdown-item text-white" id="prueba2" href="Rankings.html">Rankigs</a></li>
-                        </ul>
                     </li>
                 </ul>
 
@@ -201,9 +188,139 @@ $usuario = recuerdaUsuario($conexion);
             </div>
         </div>
 
-        <script src="../../js/Formulario.js"></script>
+        <!-- CREAR GRUPOS -->
+        <div class="col-sm-6 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">CREAR GRUPOS</h5>
+                    <p class="card-text">Crea los grupos de entrenamientos que necesites</p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#CrearGrupos" aria-expanded="false" aria-controls="collapseExample">
+                        Crear Grupos
+                    </button>
 
+                    <div class="collapse mt-2" id="CrearGrupos">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <form action="" method="POST">
+
+                                    <div class="mb-3">
+                                        <label for="nombreGrupo" class="form-label">Nombre del Grupo:</label>
+                                        <input type="text" class="form-control" id="nombreGrupo" name="nombreGrupo" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="categoria" class="form-label">Categoria:</label>
+                                        <input type="text" class="form-control" id="categoria" name="categoria" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="horario" class="form-label">Rango horario (ejemplo: 8:00 - 17:00):</label>
+                                        <input type="text" class="form-control" id="horario" name="horario" placeholder="HH:MM - HH:MM" pattern="\d{1,2}:\d{2}\s-\s\d{1,2}:\d{2}" title="Introduce un rango horario válido (HH:MM - HH:MM)" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="descripcion" class="form-label">Descripción:</label>
+                                        <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
+                                    </div>
+
+                                    <input type="submit" class="btn btn-primary" value="Registrar Grupo">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CREAR GRUPOS -->
+
+        <!-- EDITAR GRUPOS -->
+        <div class="col-sm-6 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">EDITAR GRUPOS</h5>
+                    <p class="card-text">Edita los datos que necesites de los grupos</p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#EditarGrupos" aria-expanded="false" aria-controls="collapseExample">
+                        Editar Grupos
+                    </button>
+
+                    <div class="collapse mt-2" id="EditarGrupos">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <?php
+                                $grupos = obtenerGrupos($conexion);
+
+                                ?>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- EDITAR GRUPOS -->
+
+        <!-- ASIGNAR GRUPOS -->
+        <div class="col-sm-6 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">ASIGNAR GRUPOS</h5>
+                    <p class="card-text">Asigna los grupos de entrenamientos a los entrenadores que desees</p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#AsignarGrupos" aria-expanded="false" aria-controls="collapseExample">
+                        Asignar Grupo
+                    </button>
+
+                    <div class="collapse mt-2" id="AsignarGrupos">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="" method="POST">
+
+                                    <div class="mb-3">
+                                        <label for="GrupoAsignado" class="form-label">Grupo de entrenamiento:</label>
+                                        <select class="form-select" id="GrupoAsignado" name="GrupoAsignado" required>
+                                            <?php
+                                            // Obtener los nombres de los grupos y sus IDs desde la base de datos
+                                            $sqlGrupos = "SELECT id_grupo, Nombre_del_grupo FROM grupo";
+                                            $stmtGrupos = $conexion->prepare($sqlGrupos);
+                                            $stmtGrupos->execute();
+
+                                            while ($row = $stmtGrupos->fetch(PDO::FETCH_ASSOC)) {
+                                                echo '<option value="' . $row['id_grupo'] . '">' . $row['Nombre_del_grupo'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="EntrenadorGrupo" class="form-label">Entrenador para el grupo:</label>
+                                        <select class="form-select" id="EntrenadorGrupo" name="EntrenadorGrupo" required>
+                                            <?php
+                                            // Obtener los nombres de los entrenadores y sus IDs desde la base de datos
+                                            $sqlEntrenadores = "SELECT id_entrenador, Nombre_de_usuario FROM entrenadores";
+                                            $stmtEntrenadores = $conexion->prepare($sqlEntrenadores);
+                                            $stmtEntrenadores->execute();
+
+                                            while ($row = $stmtEntrenadores->fetch(PDO::FETCH_ASSOC)) {
+                                                echo '<option value="' . $row['id_entrenador'] . '">' . $row['Nombre_de_usuario'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                    <input type="submit" class="btn btn-primary" value="Registrar Grupo">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- ASIGNAR GRUPOS -->
+
+        <script src="../../js/Formulario.js"></script>
     </div>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>

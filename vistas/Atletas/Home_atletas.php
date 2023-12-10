@@ -3,6 +3,7 @@ session_start();
 //Filtro
 require_once "../../BD/conexionBD.php";
 require_once "../../Filtros/FiltroAtleta.php";
+
 require "../../Controladores/NombreUsuario.php";
 require "../../Controladores/Contenido.php";
 $usuario = recuerdaUsuario($conexion);
@@ -36,26 +37,6 @@ $usuario = recuerdaUsuario($conexion);
                     <li class="nav-item">
                         <a class="nav-link text-white-50" id="texcab" href="../../Album.php">Albumes</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white-50" id="texcab" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Club
-                        </a>
-                        <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item text-white" id="prueba" href="#">Historia</a></li>
-                            <li><a class="dropdown-item text-white" id="prueba" href="#">Entrenadores</a></li>
-                            <!-- <li><a class="dropdown-item text-white" id="prueba" href="#">Directiva</a></li> -->
-                            <li><a class="dropdown-item text-white" id="prueba" href="#">Administrar</a>
-                            </li>
-                            <li>
-                            <li>
-                                <hr class="dropdown-divider bg-light">
-                            </li>
-                            <li><a class="dropdown-item text-white" id="prueba2" href="../../login.php">Iniciar Sesión</a>
-                            </li>
-                            <li><a class="dropdown-item text-white" id="prueba2" href="#">Horarios</a></li>
-                            <li><a class="dropdown-item text-white" id="prueba2" href="#">Rankigs</a></li>
-                        </ul>
-                    </li>
                 </ul>
                 <div class="btn-group">
                     <button type="button" class="btn  dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">
@@ -77,16 +58,55 @@ $usuario = recuerdaUsuario($conexion);
         </div>
     </nav>
     <!-- HEADER -->
-    <?php
-    
-    $titulo="Tecnicas de vallas, carrera, saltos y lanzamientos";
-    $cantidad="3";
-    $titulo2="Preventivos y ejercicios de alto nivel";
-    $cantidad2="3";
-     generarTarjetas($titulo, $cantidad);
-     generarTarjetas($titulo2, $cantidad2);
-    ?>               
 
+    <!-- Botón modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarModal">
+        Crear Informacion
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarModalLabel">Editar Texto de Tarjeta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulario para editar el texto -->
+                    <form action="" method="POST">
+
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label">Titulo</label>
+                            <input type="text" class="form-control" id="titulo" name="titulo" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="cantidad" class="form-label">Cantidad (máximo: 6)</label>
+                            <input type="number" class="form-control" id="cantidad" name="cantidad" required max="6">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="grupo" class="form-label">Grupo</label>
+                            <input type="text" class="form-control" id="grupo" name="grupo" required>
+                        </div>
+
+                        <div class="mb-3" id="contenedor-texto">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php
+    generarTarjetas($conexion);
+    ?>
+
+    <script src="../../js/ContenidoHomeUsers.js"></script>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
