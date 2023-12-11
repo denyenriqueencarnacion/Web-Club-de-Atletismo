@@ -1,5 +1,5 @@
 <?php
-$authManager = new AuthorizationManager(['Atleta']);
+$authManager = new AuthorizationManager(['Atleta', 'Entrenador', 'Administrador']);
 $userType = null;
 if (isset($_SESSION['id_usuario'])) {
     $recuerda = $conexion->prepare('SELECT Tipo FROM usuarios WHERE id_usuario = :id_usuario');
@@ -11,14 +11,17 @@ if (!$authManager->checkAuthorization($userType)) {
     $authManager->redirectUnauthorized("../../login.php");
 }
 
-class AuthorizationManager {
+class AuthorizationManager
+{
     private $allowedTypes;
 
-    public function __construct($allowedTypes = []) {
+    public function __construct($allowedTypes = [])
+    {
         $this->allowedTypes = $allowedTypes;
     }
 
-    public function checkAuthorization($userType) {
+    public function checkAuthorization($userType)
+    {
         if (in_array($userType, $this->allowedTypes) || empty($this->allowedTypes)) {
             return true;
         } else {
@@ -26,11 +29,9 @@ class AuthorizationManager {
         }
     }
 
-    public function redirectUnauthorized($redirectUrl) {
+    public function redirectUnauthorized($redirectUrl)
+    {
         header("location: $redirectUrl");
         exit();
     }
 }
-
-
-?>

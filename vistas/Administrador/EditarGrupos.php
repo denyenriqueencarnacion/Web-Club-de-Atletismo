@@ -23,7 +23,7 @@ $usuario = recuerdaUsuario($conexion);
     <!-- HEADER -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand text-white fw-bold" href="../../index.html"><img class="media-object rounded-circle" src="../../img/logo.jpg" width="50" height="50"> CDA San Juan De Aznalfarache</a>
+            <a class="navbar-brand text-white fw-bold" href="../../index.php"><img class="media-object rounded-circle" src="../../img/logo.jpg" width="50" height="50"> CDA San Juan De Aznalfarache</a>
             <button class="navbar-toggler bg-danger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -46,7 +46,7 @@ $usuario = recuerdaUsuario($conexion);
                         } ?>
                     </button>
                     <ul class="dropdown-menu bg-dark w-100">
-                        <li><a class="dropdown-item text-white" id="prueba" href="../index.html">Volver a inicio</a></li>
+                        <li><a class="dropdown-item text-white" id="prueba" href="../index.php">Volver a inicio</a></li>
 
                         <li>
                             <hr class="dropdown-divider text-white">

@@ -3,7 +3,6 @@ session_start();
 //Filtro
 require_once "../../BD/conexionBD.php";
 require_once "../../Filtros/FiltroAtleta.php";
-
 require "../../Controladores/NombreUsuario.php";
 require "../../Controladores/Contenido.php";
 $usuario = recuerdaUsuario($conexion);
@@ -24,7 +23,7 @@ $usuario = recuerdaUsuario($conexion);
     <!-- BARRA DE NAVEGACION -->
     <nav class="navbar navbar-expand-lg navbar-light bg-dark" id="encabezado">
         <div class="container-fluid">
-            <a class="navbar-brand text-white fw-bold" href="../../index.html"><img class="media-object rounded-circle" src="../../img/logo.jpg" width="50" height="50"> CDA San Juan De Aznalfarache</a>
+            <a class="navbar-brand text-white fw-bold" href="../../index.php"><img class="media-object rounded-circle" src="../../img/logo.jpg" width="50" height="50"> CDA San Juan De Aznalfarache</a>
             <button class="navbar-toggler bg-danger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -46,7 +45,7 @@ $usuario = recuerdaUsuario($conexion);
                         } ?>
                     </button>
                     <ul class="dropdown-menu bg-dark w-100">
-                        <li><a class="dropdown-item text-white" id="prueba" href="../../index.html">Volver a inicio</a></li>
+                        <li><a class="dropdown-item text-white" id="prueba" href="../../index.php">Volver a inicio</a></li>
 
                         <li>
                             <hr class="dropdown-divider text-white">
@@ -59,48 +58,55 @@ $usuario = recuerdaUsuario($conexion);
     </nav>
     <!-- HEADER -->
 
-    <!-- Botón modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarModal">
-        Crear Informacion
-    </button>
+    <?php
+    if ($usuario["Tipo"] == "Entrenador" || $usuario["Tipo"] == "Administrador") {
+    ?>
+        <!-- Botón modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarModal">
+            Crear Informacion
+        </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editarModalLabel">Editar Texto de Tarjeta</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Formulario para editar el texto -->
-                    <form action="" method="POST">
+        <!-- Modal -->
+        <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editarModalLabel">Editar Texto de Tarjeta</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Formulario para editar el texto -->
+                        <form action="" method="POST">
 
-                        <div class="mb-3">
-                            <label for="titulo" class="form-label">Titulo</label>
-                            <input type="text" class="form-control" id="titulo" name="titulo" required>
-                        </div>
+                            <div class="mb-3">
+                                <label for="titulo" class="form-label">Titulo</label>
+                                <input type="text" class="form-control" id="titulo" name="titulo" required>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="cantidad" class="form-label">Cantidad (máximo: 6)</label>
-                            <input type="number" class="form-control" id="cantidad" name="cantidad" required max="6">
-                        </div>
+                            <div class="mb-3">
+                                <label for="cantidad" class="form-label">Cantidad (máximo: 6)</label>
+                                <input type="number" class="form-control" id="cantidad" name="cantidad" required max="6">
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="grupo" class="form-label">Grupo</label>
-                            <input type="text" class="form-control" id="grupo" name="grupo" required>
-                        </div>
+                            <div class="mb-3">
+                                <label for="grupo" class="form-label">Grupo</label>
+                                <input type="text" class="form-control" id="grupo" name="grupo" required>
+                            </div>
 
-                        <div class="mb-3" id="contenedor-texto">
-                        </div>
+                            <div class="mb-3" id="contenedor-texto">
+                            </div>
 
-                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                    </form>
+                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        </form>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    <?php
+    }
+    ?>
+
 
     <?php
     generarTarjetas($conexion);

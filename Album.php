@@ -4,6 +4,7 @@ require_once "BD/conexionBD.php";
 // require_once "../../Filtros/FiltroAdmin.php";
 require "Controladores/NombreUsuario.php";
 require "Controladores/CrearUsuarios.php";
+require "Controladores/Contenido.php";
 $msg = registrarUsuario($conexion);
 $usuario = recuerdaUsuario($conexion);
 ?>
@@ -26,7 +27,7 @@ $usuario = recuerdaUsuario($conexion);
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-dark" id="encabezado">
         <div class="container-fluid">
-            <a class="navbar-brand text-white fw-bold" href="index.html"><img class="media-object rounded-circle"
+            <a class="navbar-brand text-white fw-bold" href="index.php"><img class="media-object rounded-circle"
                     src="img/logo.jpg" width="50" height="50"> CDA San Juan De Aznalfarache</a>
             <button class="navbar-toggler bg-danger" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -51,18 +52,18 @@ $usuario = recuerdaUsuario($conexion);
                         } ?>
                     </button>
                     <ul class="dropdown-menu bg-dark w-100">
-                        <li><a class="dropdown-item text-white" id="prueba" href="../../index.html">Volver a inicio</a></li>
+                        <li><a class="dropdown-item text-white" id="prueba" href="index.php">Volver a inicio</a></li>
 
                         <li>
                             <hr class="dropdown-divider text-white">
                         </li>
-                        <li><a class="dropdown-item text-white" id="prueba2" href="../../CerrarSession.php">Cerrar Sesion</a></li>
+                        <li><a class="dropdown-item text-white" id="prueba2" href="CerrarSession.php">Cerrar Sesion</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
-    <!-- <h1 class="text-center p-3 mt-1 fst-italic bg-dark  text-decoration-underline " id="txts">ALBUMES DE NUESTROS MEJORES MOMENTOS</h1>
+    <h1 class="text-center p-3 mt-1 fst-italic  text-decoration-underline " id="txts">ALBUMES DE NUESTROS MEJORES MOMENTOS</h1>
       <main>
         <section class="p-1 text-center container ">
           <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -86,9 +87,9 @@ $usuario = recuerdaUsuario($conexion);
               <span class="visually-hidden">Next</span>
             </button>
           </div>
-        </section> -->
+        </section>
       
-        <div class="album py-5 bg-light">
+        <div class="album py-5">
           <div class="container">
             
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">

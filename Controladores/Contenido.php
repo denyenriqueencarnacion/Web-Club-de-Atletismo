@@ -83,10 +83,6 @@ function generarTarjetas($conexion)
                         </svg>
                         <div class="card-body">
                             <p class="card-text">' . $texto . '</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="#" class="stretched-link text-decoration-none ">Ver</a>
-                                <small class="text-muted">9 mins</small>
-                            </div>
                         </div>
                     </div>
                 </div>';
