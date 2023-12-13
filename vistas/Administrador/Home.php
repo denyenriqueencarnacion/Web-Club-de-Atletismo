@@ -61,7 +61,27 @@ $usuario = recuerdaUsuario($conexion);
             </div>
         </div>
     </nav>
+    <!-- Botón para abrir la ventana modal -->
+    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#instruccionesModal">
+        Instrucciones
+    </button>
 
+    <!-- Ventana modal -->
+    <div class="modal fade" id="instruccionesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Instrucciones</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Estos son los pasos a seguir para la creación del club:</p>
+                    <p>Lo primero que vamos a hacer es crear los grupos. Después de crear los grupos, añadiremos los entrenadores. Una vez creados los entrenadores, asignaremos los grupos a cada entrenador. Finalmente, crearemos los atletas y a cada uno le asignaremos su grupo según su número, que podemos ver listado pulsando el botón "Editar grupo".</p>
+                    <p>Recuerda, tu como administrador si vas a la pagina del calendario, puedes asignar eventos, y si vas a la pagina de albumes puedes generar albumes y enlazarles la carpeta de drive o cualquier sitio donde se encuentren las fotos</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid row mt-2">
         <?php if (!empty($msg)) {
             echo '<div class="alert alert-info mt-3" role="alert">' . $msg . '</div>';
