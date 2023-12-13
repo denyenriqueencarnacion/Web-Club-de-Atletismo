@@ -63,6 +63,17 @@ $usuario = recuerdaUsuario($conexion);
   </nav>
 
   <?php
+  if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["cantidadImagenes"]) && isset($_POST["urlImagenes"])) {
+    $cantidad = $_POST["cantidadImagenes"];
+    $url = $_POST["urlImagenes"];
+
+    // Crear cookies con los valores del formulario
+    setcookie('cantidad_imagenes', $cantidad, time() + (86400 * 30), "/"); // 30 días de duración
+    setcookie('url_imagenes', $url, time() + (86400 * 30), "/"); // 30 días de duración
+  }
+  ?>
+
+  <?php
   if (isset($usuario) && ($usuario["Tipo"] == "Entrenador" || $usuario["Tipo"] == "Administrador")) {
   ?>
     <!-- Botón para abrir la ventana modal -->
@@ -98,6 +109,7 @@ $usuario = recuerdaUsuario($conexion);
   <?php
   }
   ?>
+
 
   <h1 class="text-center p-3 mt-1 fst-italic  text-decoration-underline " id="txts">ALBUMES DE NUESTROS MEJORES MOMENTOS</h1>
   <main>

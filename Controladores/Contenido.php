@@ -148,6 +148,15 @@ function generarTarjetas($conexion)
 
 function generarAlbum($cantidad, $url)
 {
+    // Verificar si las cookies existen y asignar sus valores a las variables
+    $cantidadCookies = isset($_COOKIE['cantidad_imagenes']) ? $_COOKIE['cantidad_imagenes'] : null;
+    $urlCookies = isset($_COOKIE['url_imagenes']) ? $_COOKIE['url_imagenes'] : null;
+
+    // Si las cookies existen, utilizar sus valores, de lo contrario, usar los parámetros
+    $cantidad = $cantidadCookies !== null ? $cantidadCookies : $cantidad;
+    $url = $urlCookies !== null ? $urlCookies : $url;
+
+    // Mostrar el contenido del álbum utilizando los valores de las variables
     echo '<div class="container-fluid w-75 mt-2">
             <div class="album py-5 ">
                 <div class="container">
@@ -162,7 +171,7 @@ function generarAlbum($cantidad, $url)
                             <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Imagen</text>
                         </svg>
                         <div class="card-body">
-                            <p class="card-text">Ver Album</p>
+                            <p class="card-text">Ver Álbum</p>
                         </div>
                     </div>
                 </a>
