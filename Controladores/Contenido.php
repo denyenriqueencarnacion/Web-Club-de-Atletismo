@@ -180,3 +180,4 @@ function generarAlbum($cantidad, $url)
 
     echo '</div></div></div></div>';
 }
+

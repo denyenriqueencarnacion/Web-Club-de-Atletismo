@@ -82,6 +82,8 @@ $usuario = recuerdaUsuario($conexion);
             </div>
         </div>
     </div>
+
+
     <div class="container-fluid row mt-2">
         <?php if (!empty($msg)) {
             echo '<div class="alert alert-info mt-3" role="alert">' . $msg . '</div>';
@@ -338,6 +340,74 @@ $usuario = recuerdaUsuario($conexion);
         </div>
         <!-- ASIGNAR GRUPOS -->
 
+        <div class="col-sm-6 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">MODIFICAR CONTENIDO</h5>
+                    <p class="card-text">Haz clic para editar la página principal</p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#editarTexto">
+                        Modificar
+                    </button>
+
+                    <div class="modal fade" id="editarTexto" tabindex="-1" aria-labelledby="editarTextoLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editarTextoLabel">Modificar página principal</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="../../Controladores/contenidoPrincipal.php" method="post">
+
+                                        <div class="mb-3">
+                                            <label for="titulo1" class="form-label">Titulo 1:</label>
+                                            <input type="text" class="form-control" id="titulo1" name="titulo1">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="subtitulo1" class="form-label">Subtitulo 1:</label>
+                                            <input type="text" class="form-control" id="subtitulo1" name="subtitulo1">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="contenido1" class="form-label">Contenido 1:</label>
+                                            <textarea class="form-control" id="contenido1" name="contenido1"></textarea>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="mb-3">
+                                            <label for="titulo2" class="form-label">Titulo 2:</label>
+                                            <input type="text" class="form-control" id="titulo2" name="titulo2">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="contenido2" class="form-label">Contenido 2:</label>
+                                            <textarea class="form-control" id="contenido2" name="contenido2"></textarea>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="mb-3">
+                                            <label for="titulo3" class="form-label">Titulo 3:</label>
+                                            <input type="text" class="form-control" id="titulo3" name="titulo3">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="contenido3" class="form-label">Contenido 3:</label>
+                                            <textarea class="form-control" id="contenido3" name="contenido3"></textarea>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <script src="../../js/Formulario.js"></script>
     </div>
 
