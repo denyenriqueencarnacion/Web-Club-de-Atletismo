@@ -11,7 +11,6 @@ function recuerdaUsuario($conexion) {
         if (count($resultado) > 0) {
             $usuario = $resultado;
         }
-
         return $usuario;
     }
 

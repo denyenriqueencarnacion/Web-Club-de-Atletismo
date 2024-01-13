@@ -76,7 +76,7 @@ $usuario = recuerdaUsuario($conexion);
   if (isset($usuario) && ($usuario["Tipo"] == "Entrenador" || $usuario["Tipo"] == "Administrador")) {
   ?>
     <!-- Botón para abrir la ventana modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-success w-100 h-20 mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
       Generar Álbum
     </button>
 

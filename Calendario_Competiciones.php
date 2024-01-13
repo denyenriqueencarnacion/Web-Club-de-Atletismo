@@ -71,9 +71,10 @@ $usuario = recuerdaUsuario($conexion);
     <!-- BARRA DE NAVEGACION  -->
 
     <?php if (isset($usuario) && $usuario["Tipo"] == "Administrador") : ?>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventoModal">
+        <button type="button" class="btn btn-success w-100 h-20 mt-2" data-bs-toggle="modal" data-bs-target="#eventoModal">
             Crear Evento
         </button>
+
 
         <!-- Ventana Modal -->
         <div class="modal fade" id="eventoModal" tabindex="-1" aria-labelledby="eventoModalLabel" aria-hidden="true">
@@ -121,14 +122,24 @@ $usuario = recuerdaUsuario($conexion);
                 var titulo = document.getElementById('titulo').value;
                 var fecha = document.getElementById('fecha').value;
 
-                var evento = {
-                    title: titulo,
-                    start: fecha
-                };
-                calendar.addEvent(evento);
-                guardarEvento(evento);
-                var modal = new bootstrap.Modal(document.getElementById('eventoModal'));
-                modal.hide();
+                // Verificar que la fecha no sea anterior a la actual
+                var fechaActual = new Date();
+                var fechaEvento = new Date(fecha);
+
+                if (fechaEvento >= fechaActual) {
+                    var evento = {
+                        title: titulo,
+                        start: fecha
+                    };
+
+                    calendar.addEvent(evento);
+                    guardarEvento(evento);
+
+                    var modal = new bootstrap.Modal(document.getElementById('eventoModal'));
+                    modal.hide();
+                } else {
+                    alert('La fecha del evento no puede ser anterior a la fecha actual.');
+                }
             });
 
             function obtenerEventosGuardados() {

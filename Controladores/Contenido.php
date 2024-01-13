@@ -41,7 +41,7 @@ function generarTarjetas($conexion)
             }
 
             if ($smt->execute()) {
-                $msg = "Datos de contenido de atleta registrados correctamente";
+                $msg = "";
             } else {
                 $msg = "No se ha podido registrar correctamente el contenido del atleta";
             }
@@ -70,9 +70,7 @@ function generarTarjetas($conexion)
         if ($resultadoAtleta) {
             $grupoUsuario = $resultadoAtleta["Grupo"];
         } else {
-            // Manejar el caso en el que no se encuentran resultados para el atleta
-            // Asignar un valor por defecto o manejar la situación según sea necesario
-            $grupoUsuario = null; // O algún otro valor apropiado
+            $grupoUsuario = null;
         }
     } elseif ($tipoUsuario === 'Entrenador') {
         $sqlGrupoEntrenador = "SELECT id_grupo FROM entrenadores_grupos WHERE id_entrenador = (SELECT id_entrenador FROM entrenadores WHERE Nombre_de_usuario = :nombreUsuario)";
@@ -84,8 +82,7 @@ function generarTarjetas($conexion)
         if ($resultadoEntrenador) {
             $grupoUsuario = $resultadoEntrenador["id_grupo"];
         } else {
-            // Manejar el caso en el que no se encuentran resultados para el entrenador
-            // Asignar un valor por defecto o manejar la situación según sea necesario
+
             $grupoUsuario = null; // O algún otro valor apropiado
         }
     }
@@ -148,15 +145,15 @@ function generarTarjetas($conexion)
 
 function generarAlbum($cantidad, $url)
 {
-    // Verificar si las cookies existen y asignar sus valores a las variables
+
     $cantidadCookies = isset($_COOKIE['cantidad_imagenes']) ? $_COOKIE['cantidad_imagenes'] : null;
     $urlCookies = isset($_COOKIE['url_imagenes']) ? $_COOKIE['url_imagenes'] : null;
 
-    // Si las cookies existen, utilizar sus valores, de lo contrario, usar los parámetros
+
     $cantidad = $cantidadCookies !== null ? $cantidadCookies : $cantidad;
     $url = $urlCookies !== null ? $urlCookies : $url;
 
-    // Mostrar el contenido del álbum utilizando los valores de las variables
+
     echo '<div class="container-fluid w-75 mt-2">
             <div class="album py-5 ">
                 <div class="container">
@@ -181,3 +178,14 @@ function generarAlbum($cantidad, $url)
     echo '</div></div></div></div>';
 }
 
+function borrarContenidoAtletas($conexion)
+{
+    if (isset($_POST["borrartarjetas"])) {
+        $sqlBorrar = "DELETE FROM contenido_atletas";
+        $stmtBorrar = $conexion->prepare($sqlBorrar);
+
+        // Ejecutar la consulta
+        $stmtBorrar->execute();
+         
+    }
+}

@@ -1,9 +1,7 @@
 <?php
 function registrarUsuario($conexion)
 {
-    $msg = "";
-
-    if (!empty($_POST["nombreUsuario"]) && !empty($_POST["nombre"]) && !empty($_POST["apellidos"]) && !empty($_POST["email"]) && !empty($_POST["DNI"]) && !empty($_POST["password"]) && !empty($_POST["Telefono"]) && !empty($_POST["tipo"]) && !empty($_POST["tipo"])) {
+    if (!empty($_POST["nombreUsuario"]) && !empty($_POST["nombre"]) && !empty($_POST["apellidos"]) && !empty($_POST["email"]) && !empty($_POST["DNI"]) && !empty($_POST["password"]) && !empty($_POST["Telefono"]) && !empty($_POST["tipo"])) {
         // Verificar si el nombre de usuario ya existe
         $nombreUsuario = $_POST["nombreUsuario"];
         $sqlVerificar = "SELECT COUNT(*) AS count FROM usuarios WHERE Nombre_de_usuario = :nombreUsuario";
@@ -12,9 +10,7 @@ function registrarUsuario($conexion)
         $stmtVerificar->execute();
         $result = $stmtVerificar->fetch(PDO::FETCH_ASSOC);
 
-        if ($result['count'] > 0) {
-            $msg = "El nombre de usuario ya está en uso, elija otro.";
-        } else {
+        if ($result['count'] == 0) {
             // Si el nombre de usuario no existe, proceder con la inserción
             $sql = "INSERT INTO usuarios(Nombre_de_usuario, nombre, apellidos, email, DNI, password, Telefono, Tipo) VALUES (:nombreUsuario, :nombre, :apellidos, :email, :DNI, :password, :Telefono, :tipo)";
             $smt = $conexion->prepare($sql);
@@ -31,7 +27,6 @@ function registrarUsuario($conexion)
 
             if ($smt->execute()) {
                 switch ($_POST["tipo"]) {
-
                     case "Atleta":
                         // Código para insertar datos de Atleta
                         $sqlAtleta = "INSERT INTO atletas(Nombre_de_usuario, Grupo, Prueba_principal, Marca, Categoria) 
@@ -42,14 +37,9 @@ function registrarUsuario($conexion)
                         $stmtAtleta->bindParam(':Grupo', $_POST["grupo"]);
                         $stmtAtleta->bindParam(':Prueba_principal', $_POST["prueba_principal"]);
                         $stmtAtleta->bindParam(':Marca', $_POST["marca"]);
-                        $stmtAtleta->bindParam(':Categoria',  $_POST["categoria"]);
+                        $stmtAtleta->bindParam(':Categoria', $_POST["categoria"]);
 
-                        if ($stmtAtleta->execute()) {
-                            $msg = "El usuario Atleta ha sido registrado correctamente";
-                        } else {
-                            $msg = "No se ha podido registrar correctamente al usuario Atleta";
-                        }
-
+                        $stmtAtleta->execute();
                         break;
 
                     case "Entrenador":
@@ -61,21 +51,15 @@ function registrarUsuario($conexion)
                         $stmtEntrenador->bindParam(':nombreUsuario', $_POST["nombreUsuario"]);
                         $stmtEntrenador->bindParam(':Descripcion', $_POST["descripcion"]);
 
-                        if ($stmtEntrenador->execute()) {
-                            $msg = "El usuario Entrenador ha sido registrado correctamente";
-                        } else {
-                            $msg = "No se ha podido registrar correctamente al usuario Entrenador";
-                        }
+                        $stmtEntrenador->execute();
                         break;
                 }
-                $msg = "El usuario ha sido registrado correctamente";
-            } else {
-                $msg = "No se ha podido registrar correctamente su usuario";
             }
         }
     }
-    return $msg;
 }
+
+
 
 function obtenerUsuarios($conexion)
 {
@@ -119,4 +103,3 @@ function obtenerUsuarios($conexion)
 
     return $usuarios;
 }
-?>

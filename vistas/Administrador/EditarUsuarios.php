@@ -83,33 +83,55 @@ $usuario = recuerdaUsuario($conexion);
         header('location: Home.php');
     }
 
-    //ELIMINAR USUARIOS
-
+    // ELIMINAR USUARIOS
     if (isset($_POST["eliminar"])) {
         $id_usuario = $_POST["id_usuario"];
-    
+
         // Verificar si el usuario es un entrenador
-        $sql_verificar_entrenador = "SELECT * FROM usuarios WHERE id_usuario = :id_usuario AND Tipo = 'Entrenador'";
+        $sql_verificar_entrenador = "SELECT * FROM usuarios WHERE id_usuario = :id_usuario";
         $stmt_verificar_entrenador = $conexion->prepare($sql_verificar_entrenador);
         $stmt_verificar_entrenador->bindParam(':id_usuario', $id_usuario);
         $stmt_verificar_entrenador->execute();
         $es_entrenador = $stmt_verificar_entrenador->rowCount() > 0;
-    
+
         // Verificar si el usuario es un atleta
         $sql_verificar_atleta = "SELECT * FROM usuarios WHERE id_usuario = :id_usuario AND Tipo = 'Atleta'";
         $stmt_verificar_atleta = $conexion->prepare($sql_verificar_atleta);
         $stmt_verificar_atleta->bindParam(':id_usuario', $id_usuario);
         $stmt_verificar_atleta->execute();
         $es_atleta = $stmt_verificar_atleta->rowCount() > 0;
-    
-        // Si es un entrenador, eliminar primero de la tabla de entrenadores
+
+        // Si es un entrenador, eliminar primero de la tabla de entrenadores_grupos
         if ($es_entrenador) {
-            $sql_eliminar_entrenador = "DELETE FROM entrenadores WHERE Nombre_de_usuario IN (SELECT Nombre_de_usuario FROM usuarios WHERE id_usuario = :id_usuario)";
+            // Obtener el Nombre_de_usuario asociado al id_usuario
+            $sql_obtener_nombre_entrenador = "SELECT Nombre_de_usuario FROM usuarios WHERE id_usuario = :id_usuario";
+            $stmt_obtener_nombre_entrenador = $conexion->prepare($sql_obtener_nombre_entrenador);
+            $stmt_obtener_nombre_entrenador->bindParam(':id_usuario', $id_usuario);
+            $stmt_obtener_nombre_entrenador->execute();
+            $row_nombre_entrenador = $stmt_obtener_nombre_entrenador->fetch(PDO::FETCH_ASSOC);
+            $nombre_usuario = $row_nombre_entrenador['Nombre_de_usuario'];
+
+            // Obtener el id_entrenador asociado al id_usuario
+            $sql_obtener_id_entrenador = "SELECT id_entrenador FROM entrenadores WHERE Nombre_de_usuario = :nombre_usuario";
+            $stmt_obtener_id_entrenador = $conexion->prepare($sql_obtener_id_entrenador);
+            $stmt_obtener_id_entrenador->bindParam(':nombre_usuario', $nombre_usuario);
+            $stmt_obtener_id_entrenador->execute();
+            $row_id_entrenador = $stmt_obtener_id_entrenador->fetch(PDO::FETCH_ASSOC);
+            $id_entrenador = $row_id_entrenador['id_entrenador'];
+
+            // Eliminar del grupo en entrenadores_grupos
+            $sql_eliminar_entrenador_grupo = "UPDATE entrenadores_grupos SET id_entrenador = NULL WHERE id_entrenador = :id_entrenador";
+            $stmt_eliminar_entrenador_grupo = $conexion->prepare($sql_eliminar_entrenador_grupo);
+            $stmt_eliminar_entrenador_grupo->bindParam(':id_entrenador', $id_entrenador);
+            $stmt_eliminar_entrenador_grupo->execute();
+
+            // Eliminar de la tabla de entrenadores
+            $sql_eliminar_entrenador = "DELETE FROM entrenadores WHERE Nombre_de_usuario = :nombre_usuario";
             $stmt_eliminar_entrenador = $conexion->prepare($sql_eliminar_entrenador);
-            $stmt_eliminar_entrenador->bindParam(':id_usuario', $id_usuario);
+            $stmt_eliminar_entrenador->bindParam(':nombre_usuario', $nombre_usuario);
             $stmt_eliminar_entrenador->execute();
         }
-    
+
         // Si es un atleta, eliminar primero de la tabla de atletas
         if ($es_atleta) {
             $sql_eliminar_atleta = "DELETE FROM atletas WHERE Nombre_de_usuario IN (SELECT Nombre_de_usuario FROM usuarios WHERE id_usuario = :id_usuario)";
@@ -117,16 +139,16 @@ $usuario = recuerdaUsuario($conexion);
             $stmt_eliminar_atleta->bindParam(':id_usuario', $id_usuario);
             $stmt_eliminar_atleta->execute();
         }
-    
+
         // Eliminar el usuario de la tabla de usuarios
         $sql_eliminar_usuario = "DELETE FROM usuarios WHERE id_usuario = :id_usuario";
         $stmt_eliminar_usuario = $conexion->prepare($sql_eliminar_usuario);
         $stmt_eliminar_usuario->bindParam(':id_usuario', $id_usuario);
         $stmt_eliminar_usuario->execute();
-    
+
         header('location: Home.php');
     }
-    
+
     //ELIMINAR USUARIOS
 
 
@@ -152,23 +174,23 @@ $usuario = recuerdaUsuario($conexion);
                     </div>
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre:</label>
-                        <input type="text" name="nombre" value="<?php echo $row['nombre']; ?>" class="form-control">
+                        <input type="text" name="nombre" value="<?php echo $row['nombre']; ?>" class="form-control" attern="[A-Za-z]+" required>
                     </div>
                     <div class="mb-3">
                         <label for="apellidos" class="form-label">Apellidos:</label>
-                        <input type="text" name="apellidos" value="<?php echo $row['apellidos']; ?>" class="form-control">
+                        <input type="text" name="apellidos" value="<?php echo $row['apellidos']; ?>" class="form-control" attern="[A-Za-z]+" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email:</label>
-                        <input type="text" name="email" value="<?php echo $row['email']; ?>" class="form-control">
+                        <input type="text" name="email" value="<?php echo $row['email']; ?>" class="form-control"  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,} required>
                     </div>
                     <div class="mb-3">
                         <label for="DNI" class="form-label">DNI:</label>
-                        <input type="text" name="DNI" value="<?php echo $row['DNI']; ?>" class="form-control">
+                        <input type="text" name="DNI" value="<?php echo $row['DNI']; ?>" class="form-control" pattern="\d{8}[a-zA-Z]" required>
                     </div>
                     <div class="mb-3">
                         <label for="Tipo" class="form-label">Tipo:</label>
-                        <input type="text" name="Tipo" value="<?php echo $row['Tipo']; ?>" class="form-control">
+                        <input type="text" name="Tipo" value="<?php echo $row['Tipo']; ?>" class="form-control" required>
                     </div>
                     <button type="submit" name="guardar_cambios" class="btn btn-primary">Guardar Cambios</button>
                     <button type="submit" name="eliminar" class="btn btn-danger">Eliminar Usuarios</button>

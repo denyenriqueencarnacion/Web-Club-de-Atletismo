@@ -5,7 +5,10 @@ require_once "../../Filtros/FiltroAdmin.php";
 require "../../Controladores/NombreUsuario.php";
 require "../../Controladores/CrearUsuarios.php";
 require "../../Controladores/CrearGrupos.php";
+require "../../Controladores/contenidoPrincipal.php";
 // require"../../Controladores/EditarUsuarios.php";
+$contenidoguardar = actualizarTexto($conexion);
+$contenidoeliminar = vaciarContenidoInicio($conexion);
 $msg = registrarUsuario($conexion);
 $msg2 = crearGrupos($conexion);
 $msg3 = asignarEntrenadorAGrupo($conexion);
@@ -62,7 +65,7 @@ $usuario = recuerdaUsuario($conexion);
         </div>
     </nav>
     <!-- Botón para abrir la ventana modal -->
-    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#instruccionesModal">
+    <button type="button" class="btn btn-success w-100 h-20 mt-2" data-bs-toggle="modal" data-bs-target="#instruccionesModal">
         Instrucciones
     </button>
 
@@ -85,10 +88,6 @@ $usuario = recuerdaUsuario($conexion);
 
 
     <div class="container-fluid row mt-2">
-        <?php if (!empty($msg)) {
-            echo '<div class="alert alert-info mt-3" role="alert">' . $msg . '</div>';
-        }
-        ?>
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
@@ -113,22 +112,22 @@ $usuario = recuerdaUsuario($conexion);
 
                                     <div class="mb-3">
                                         <label for="nombre" class="form-label">Nombre:</label>
-                                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                        <input type="text" class="form-control" id="nombre" name="nombre" pattern="[A-Za-z]+" required>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="apellidos" class="form-label">Apellidos:</label>
-                                        <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                                        <input type="text" class="form-control" id="apellidos" name="apellidos" pattern="[A-Za-z]+" required>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Correo Electrónico:</label>
-                                        <input type="email" class="form-control" id="email" name="email" required>
+                                        <input type="email" class="form-control" id="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,} required>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="DNI" class="form-label">DNI:</label>
-                                        <input type="text" class="form-control" id="DNI" name="DNI" required>
+                                        <input type="text" class="form-control" id="DNI" name="DNI" pattern="\d{8}[a-zA-Z]" required>
                                     </div>
 
                                     <div class="mb-3">
@@ -159,7 +158,18 @@ $usuario = recuerdaUsuario($conexion);
 
                                     <div class="mb-3" id="grupo" style="display: none;">
                                         <label for="grupo" class="form-label">Grupo:</label>
-                                        <input type="text" class="form-control" id="grupo" name="grupo">
+                                        <select class="form-select" id="grupo" name="grupo" required>
+                                            <?php
+                                            // Obtener los nombres de los grupos y sus IDs desde la base de datos
+                                            $sqlGrupos = "SELECT id_grupo, Nombre_del_grupo FROM grupo";
+                                            $stmtGrupos = $conexion->prepare($sqlGrupos);
+                                            $stmtGrupos->execute();
+
+                                            while ($row = $stmtGrupos->fetch(PDO::FETCH_ASSOC)) {
+                                                echo '<option value="' . $row['id_grupo'] . '">' . $row['Nombre_del_grupo'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
 
                                     <div class="mb-3" id="prueba_principal" style="display: none;">
@@ -238,7 +248,7 @@ $usuario = recuerdaUsuario($conexion);
 
                                     <div class="mb-3">
                                         <label for="horario" class="form-label">Rango horario (ejemplo: 8:00 - 17:00):</label>
-                                        <input type="text" class="form-control" id="horario" name="horario" placeholder="HH:MM - HH:MM" pattern="\d{1,2}:\d{2}\s-\s\d{1,2}:\d{2}" title="Introduce un rango horario válido (HH:MM - HH:MM)" required>
+                                        <input type="text" class="form-control" id="horario" name="horario" placeholder="HH:MM - HH:MM" pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9] - (0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" title="Introduce un rango horario válido (HH:MM - HH:MM)" required>
                                     </div>
 
                                     <div class="mb-3">
@@ -343,12 +353,12 @@ $usuario = recuerdaUsuario($conexion);
         <div class="col-sm-6 mt-2">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">MODIFICAR CONTENIDO</h5>
+                    <h5 class="card-title">CREAR CONTENIDO</h5>
                     <p class="card-text">Haz clic para editar la página principal</p>
+                    
                     <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#editarTexto">
-                        Modificar
+                        Crear Contenido
                     </button>
-
                     <div class="modal fade" id="editarTexto" tabindex="-1" aria-labelledby="editarTextoLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -357,48 +367,30 @@ $usuario = recuerdaUsuario($conexion);
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="../../Controladores/contenidoPrincipal.php" method="post">
+                                    <form action="" method="post" enctype="multipart/form-data">
 
                                         <div class="mb-3">
-                                            <label for="titulo1" class="form-label">Titulo 1:</label>
-                                            <input type="text" class="form-control" id="titulo1" name="titulo1">
+                                            <label for="titulo1" class="form-label">Titulo:</label>
+                                            <input type="text" class="form-control" id="titulo1" name="titulo1" >
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="subtitulo1" class="form-label">Subtitulo 1:</label>
-                                            <input type="text" class="form-control" id="subtitulo1" name="subtitulo1">
+                                            <label for="subtitulo1" class="form-label">Subtitulo:</label>
+                                            <input type="text" class="form-control" id="subtitulo1" name="subtitulo1" >
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="contenido1" class="form-label">Contenido 1:</label>
-                                            <textarea class="form-control" id="contenido1" name="contenido1"></textarea>
+                                            <label for="contenido1" class="form-label">Contenido:</label>
+                                            <textarea class="form-control" id="contenido1" name="contenido1" ></textarea>
                                         </div>
-
-                                        <hr>
-
+                                        
                                         <div class="mb-3">
-                                            <label for="titulo2" class="form-label">Titulo 2:</label>
-                                            <input type="text" class="form-control" id="titulo2" name="titulo2">
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="contenido2" class="form-label">Contenido 2:</label>
-                                            <textarea class="form-control" id="contenido2" name="contenido2"></textarea>
-                                        </div>
-
-                                        <hr>
-
-                                        <div class="mb-3">
-                                            <label for="titulo3" class="form-label">Titulo 3:</label>
-                                            <input type="text" class="form-control" id="titulo3" name="titulo3">
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="contenido3" class="form-label">Contenido 3:</label>
-                                            <textarea class="form-control" id="contenido3" name="contenido3"></textarea>
+                                            <label for="imagen" class="form-label">imagen:</label>
+                                            <input type="file" class="form-control" name="imagen" id="imagen" >
                                         </div>
 
                                         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                        <button type="submit" id="eliminarcontenido" name="eliminarcontenido" class="btn btn-primary">Eliminar Todo el Contenido</button>
                                     </form>
                                 </div>
                             </div>

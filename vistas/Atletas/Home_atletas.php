@@ -5,6 +5,7 @@ require_once "../../BD/conexionBD.php";
 require_once "../../Filtros/FiltroAtleta.php";
 require "../../Controladores/NombreUsuario.php";
 require "../../Controladores/Contenido.php";
+$borrartarjetas = borrarContenidoAtletas($conexion);
 $usuario = recuerdaUsuario($conexion);
 ?>
 <!DOCTYPE html>
@@ -62,7 +63,7 @@ $usuario = recuerdaUsuario($conexion);
     if ($usuario["Tipo"] == "Entrenador" || $usuario["Tipo"] == "Administrador") {
     ?>
         <!-- Botón modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarModal">
+        <button type="button" class="btn btn-success w-100 h-20 mt-2" data-bs-toggle="modal" data-bs-target="#editarModal">
             Crear Informacion
         </button>
 
@@ -80,23 +81,24 @@ $usuario = recuerdaUsuario($conexion);
 
                             <div class="mb-3">
                                 <label for="titulo" class="form-label">Titulo</label>
-                                <input type="text" class="form-control" id="titulo" name="titulo" required>
+                                <input type="text" class="form-control" id="titulo" name="titulo" >
                             </div>
 
                             <div class="mb-3">
                                 <label for="cantidad" class="form-label">Cantidad (máximo: 6)</label>
-                                <input type="number" class="form-control" id="cantidad" name="cantidad" required max="6">
+                                <input type="number" class="form-control" id="cantidad" name="cantidad"  max="6">
                             </div>
 
                             <div class="mb-3">
                                 <label for="grupo" class="form-label">Grupo</label>
-                                <input type="text" class="form-control" id="grupo" name="grupo" required>
+                                <input type="text" class="form-control" id="grupo" name="grupo" >
                             </div>
 
                             <div class="mb-3" id="contenedor-texto">
                             </div>
 
                             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            <button type="submit"  class="btn btn-primary" id="borrartarjetas" name="borrartarjetas">Eliminar todo</button>
                         </form>
 
                     </div>

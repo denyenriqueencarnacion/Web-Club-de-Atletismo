@@ -128,7 +128,7 @@ $usuario = recuerdaUsuario($conexion);
 
                     <div class="mb-3">
                         <label for="horario" class="form-label">Rango horario:</label>
-                        <input type="text" class="form-control" id="horario" name="horario" value="<?php echo $row['Horario']; ?>" required>
+                        <input type="text" class="form-control" id="horario" name="horario" value="<?php echo $row['Horario']; ?>" pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9] - (0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" required>
                     </div>
 
                     <div class="mb-3">
