@@ -81,24 +81,39 @@ $usuario = recuerdaUsuario($conexion);
 
                             <div class="mb-3">
                                 <label for="titulo" class="form-label">Titulo</label>
-                                <input type="text" class="form-control" id="titulo" name="titulo" >
+                                <input type="text" class="form-control" id="titulo" name="titulo">
                             </div>
 
                             <div class="mb-3">
                                 <label for="cantidad" class="form-label">Cantidad (máximo: 6)</label>
-                                <input type="number" class="form-control" id="cantidad" name="cantidad"  max="6">
+                                <input type="number" class="form-control" id="cantidad" name="cantidad" max="6">
                             </div>
 
-                            <div class="mb-3">
-                                <label for="grupo" class="form-label">Grupo</label>
-                                <input type="text" class="form-control" id="grupo" name="grupo" >
+                            <div class="mb-3" id="grupo">
+                                <label for="grupo" class="form-label">Grupo:</label>
+                                <select class="form-select" id="grupo" name="grupo" required>
+                                    <?php
+                                    // Consultar los grupos del entrenador
+                                    $sqlGrupoEntrenador = "SELECT id_grupo FROM entrenadores_grupos WHERE id_entrenador = (SELECT id_entrenador FROM entrenadores WHERE Nombre_de_usuario = :nombreUsuario)";
+                                    $stmtGrupoEntrenador = $conexion->prepare($sqlGrupoEntrenador);
+                                    $stmtGrupoEntrenador->bindParam(':nombreUsuario', $usuario["Nombre_de_usuario"]);
+                                    $stmtGrupoEntrenador->execute();
+
+                                    while ($row = $stmtGrupoEntrenador->fetch(PDO::FETCH_ASSOC)) {
+                                        echo '<option value="' . $row['id_grupo'] . '">' . $row['id_grupo'] . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </div>
+
+
+
 
                             <div class="mb-3" id="contenedor-texto">
                             </div>
 
                             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                            <button type="submit"  class="btn btn-primary" id="borrartarjetas" name="borrartarjetas">Eliminar todo</button>
+                            <button type="submit" class="btn btn-primary" id="borrartarjetas" name="borrartarjetas">Eliminar todo</button>
                         </form>
 
                     </div>

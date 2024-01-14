@@ -15,36 +15,27 @@ function generarTarjetas($conexion)
 
         $grupo = (!empty($_POST["grupo"])) ? $_POST["grupo"] : null;
         $msg = "";
-        $sqlVerificar = "SELECT COUNT(*) AS count FROM contenido_atletas WHERE Titulo = :titulo";
-        $stmtVerificar = $conexion->prepare($sqlVerificar);
-        $stmtVerificar->bindParam(':titulo', $titulo);
-        $stmtVerificar->execute();
-        $result = $stmtVerificar->fetch(PDO::FETCH_ASSOC);
 
-        if ($result['count'] > 0) {
-            $msg = "El título ya está en uso, elija otro.";
-        } else {
-            $sql = "INSERT INTO contenido_atletas (Titulo, Cantidad_Tarjetas, Grupo, Contenido1, Contenido2, Contenido3, Contenido4, Contenido5, Contenido6) VALUES (:titulo, :cantidad, :grupo, :texto1, :texto2, :texto3, :texto4, :texto5, :texto6)";
-            $smt = $conexion->prepare($sql);
+        $sql = "INSERT INTO contenido_atletas (Titulo, Cantidad_Tarjetas, Grupo, Contenido1, Contenido2, Contenido3, Contenido4, Contenido5, Contenido6) VALUES (:titulo, :cantidad, :grupo, :texto1, :texto2, :texto3, :texto4, :texto5, :texto6)";
+        $smt = $conexion->prepare($sql);
 
-            $smt->bindParam(':titulo', $titulo);
-            $smt->bindParam(':cantidad', $cantidad);
-            $smt->bindParam(':grupo', $grupo);
-            for ($i = 0; $i < 6; $i++) {
-                $contentIndex = $i + 1;
-                if (isset($textos[$i])) {
-                    $smt->bindParam(":texto$contentIndex", $textos[$i]);
-                } else {
-                    $placeholder = "";
-                    $smt->bindParam(":texto$contentIndex", $placeholder);
-                }
-            }
-
-            if ($smt->execute()) {
-                $msg = "";
+        $smt->bindParam(':titulo', $titulo);
+        $smt->bindParam(':cantidad', $cantidad);
+        $smt->bindParam(':grupo', $grupo);
+        for ($i = 0; $i < 6; $i++) {
+            $contentIndex = $i + 1;
+            if (isset($textos[$i])) {
+                $smt->bindParam(":texto$contentIndex", $textos[$i]);
             } else {
-                $msg = "No se ha podido registrar correctamente el contenido del atleta";
+                $placeholder = "";
+                $smt->bindParam(":texto$contentIndex", $placeholder);
             }
+        }
+
+        if ($smt->execute()) {
+            $msg = "Datos de contenido de atleta registrados correctamente";
+        } else {
+            $msg = "No se ha podido registrar correctamente el contenido del atleta";
         }
 
         echo '<p>' . $msg . '</p>';
@@ -83,7 +74,7 @@ function generarTarjetas($conexion)
             $grupoUsuario = $resultadoEntrenador["id_grupo"];
         } else {
 
-            $grupoUsuario = null; // O algún otro valor apropiado
+            $grupoUsuario = null;
         }
     }
 
@@ -143,41 +134,6 @@ function generarTarjetas($conexion)
     }
 }
 
-function generarAlbum($cantidad, $url)
-{
-
-    $cantidadCookies = isset($_COOKIE['cantidad_imagenes']) ? $_COOKIE['cantidad_imagenes'] : null;
-    $urlCookies = isset($_COOKIE['url_imagenes']) ? $_COOKIE['url_imagenes'] : null;
-
-
-    $cantidad = $cantidadCookies !== null ? $cantidadCookies : $cantidad;
-    $url = $urlCookies !== null ? $urlCookies : $url;
-
-
-    echo '<div class="container-fluid w-75 mt-2">
-            <div class="album py-5 ">
-                <div class="container">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">';
-
-    for ($i = 1; $i <= $cantidad; $i++) {
-        echo '<div class="col">
-                <a href="' . $url . '" target="_blank">
-                    <div class="card shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Imagen" preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Imagen</text>
-                        </svg>
-                        <div class="card-body">
-                            <p class="card-text">Ver Álbum</p>
-                        </div>
-                    </div>
-                </a>
-            </div>';
-    }
-
-    echo '</div></div></div></div>';
-}
-
 function borrarContenidoAtletas($conexion)
 {
     if (isset($_POST["borrartarjetas"])) {
@@ -186,6 +142,5 @@ function borrarContenidoAtletas($conexion)
 
         // Ejecutar la consulta
         $stmtBorrar->execute();
-         
     }
 }

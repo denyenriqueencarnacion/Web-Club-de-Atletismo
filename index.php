@@ -98,9 +98,8 @@ $usuario = recuerdaUsuario($conexion);
       <div class="container-fluid ">
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative bg-dark bg-gradient">
           <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-primary">Nuevo!</strong>
-            <h3 class="mb-0" id="txts">Visita Nuestros albumes</h3>
-            <div class="mb-1 text-muted">Oct 18</div>
+            <h3 class="text-success">Visita Nuestros albumes</h3>
+            <div class="mb-1 text-muted"><?php echo date('d-m-y')  ?></div>
             <p class="card-text text-white">Disfruta de las imagenes de nuestros mejores momento como equipo</p>
             <a href="Album.php" class="stretched-link">Ver albumes</a>
           </div>
@@ -133,7 +132,7 @@ $usuario = recuerdaUsuario($conexion);
           echo '</p>';
 
           // Mostrar la imagen (ajusta la ruta según tu configuración)
-          echo '<img src="' . $fila['imagen'] . '" alt="Imagen" style="max-width: 100%;">';
+          echo '<img src="' . $fila['imagen'] . '" alt="Imagen" style="max-width: 50%;">';
 
 
           echo '<hr>';
@@ -156,8 +155,9 @@ $usuario = recuerdaUsuario($conexion);
           <div class="p-4 mb-3 text-white bg-dark bg-gradient  rounded">
             <h4 class="fst-italic text-decoration-underline">Sobre Nosotros</h4>
             <p class="mb-0">Somos un club de pueblo, con unos valores inquebrantables y un espiritu de lucha muy sanjuanero.
-              nos encanta formar parte de este proyecto, de conseguir llevar el nombre de nuestro pueblo natal a todos los rincones de españa
+              nos encanta formar parte de este proyecto, de conseguir llevar el nombre de nuestro pueblo natal a todos los rincones de españa.
             </p>
+            <p><a href="https://docs.google.com/forms/d/1BdaLSkBqoGzKzWz8zW2PSXgBHU3vadlqOpbmCW2WoNU/viewform?edit_requested=true" class="text-decoration-none fst-italic">INSCRIBETE!</a></p>
           </div>
 
           <div class="p-4 mt-3 bg-dark bg-gradient  rounded">
